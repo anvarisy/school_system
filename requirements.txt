@@ -1,0 +1,15 @@
+pillow
+mysqlclient
+django-filter
+django-tables2
+django-crispy-forms
+bootstrap3
+pyexcel-xlsx
+django-import-export
+pyexcel-xls
+django-simple-import[ods,xls,xlsx]
+django-autocomplete-light
+lxml
+docx-mailmerge
+python-docx
+docxcompose

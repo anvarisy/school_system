@@ -1,0 +1,193 @@
+{% load static %}
+<!-- ########## START: LEFT PANEL ########## -->
+<div class="sl-logo">
+    <a href=""><i class="icon ion-android-home"></i> SMSI</a>
+</div>
+<div class="sl-sideleft">
+
+    <div class="sl-sideleft-menu">
+        <a href="#" class="sl-menu-link active">
+            <div class="sl-menu-item">
+                <i class="menu-item-icon icon ion-ios-home-outline tx-22"></i>
+                <span class="menu-item-label">Dashboard</span>
+            </div>
+            <!-- menu-item -->
+        </a>
+        <!-- sl-menu-link user -->
+        <a href="#" class="sl-menu-link">
+            <div class="sl-menu-item">
+                <!-- <i class="menu-item-icon icon ion-ios-photos-outline tx-20"></i> -->
+                <span class="menu-item-label">Guru</span>
+                <i class="menu-item-arrow fa fa-angle-down"></i>
+            </div>
+            <!-- menu-item -->
+            <ul class="sl-menu-sub nav flex-column">
+                <li class="nav-item"><a href="{%url 'add-user'%}" class="nav-link">Form Guru</a></li>
+                <li class="nav-item"><a href="{%url 'list-user'%}" class="nav-link">List Guru</a></li>
+            </ul>
+        </a>
+       
+        <!-- sl-menu-link parent-->
+        <a href="#" class="sl-menu-link">
+            <div class="sl-menu-item">
+                <!-- <i class="menu-item-icon icon ion-ios-photos-outline tx-20"></i> -->
+                <span class="menu-item-label">Ortu</span>
+                <i class="menu-item-arrow fa fa-angle-down"></i>
+            </div>
+            <!-- menu-item -->
+            <ul class="sl-menu-sub nav flex-column">
+                <li class="nav-item"><a href="{%url 'add-parent'%}" class="nav-link">Form Ortu</a></li>
+                <li class="nav-item"><a href="{%url 'list-parent'%}" class="nav-link">List Ortu</a></li>
+            </ul>
+        </a>
+
+                <!-- sl-menu-link student-->
+        <a href="#" class="sl-menu-link">
+            <div class="sl-menu-item">
+                        <!-- <i class="menu-item-icon icon ion-ios-photos-outline tx-20"></i> -->
+                <span class="menu-item-label">Santri</span>
+                <i class="menu-item-arrow fa fa-angle-down"></i>
+            </div>
+                    <!-- menu-item -->
+            <ul class="sl-menu-sub nav flex-column">
+                <li class="nav-item"><a href="{%url 'add-student'%}" class="nav-link">Form Santri</a></li>
+                <li class="nav-item"><a href="{%url 'list-student'%}" class="nav-link">List Santri</a></li>
+            </ul>
+        </a>
+
+        <!-- sl-menu-link Halaman Rapor-->
+        <a href="#" class="sl-menu-link">
+            <div class="sl-menu-item">
+                        <!-- <i class="menu-item-icon icon ion-ios-photos-outline tx-20"></i> -->
+                <span class="menu-item-label">Halaman Rapor</span>
+                <i class="menu-item-arrow fa fa-angle-down"></i>
+            </div>
+                    <!-- menu-item -->
+            <ul class="sl-menu-sub nav flex-column">
+                <li class="nav-item"><a href="{%url 'list-plp'%}" class="nav-link">List</a></li>
+                <li class="nav-item"><a href="{%url 'add-plp'%}" class="nav-link">Form</a></li>
+            </ul>
+        </a>
+
+        <!-- sl-menu-link Halaman Rapor Santri-->
+        <a href="#" class="sl-menu-link">
+            <div class="sl-menu-item">
+                        <!-- <i class="menu-item-icon icon ion-ios-photos-outline tx-20"></i> -->
+                <span class="menu-item-label">Halaman Rapor Santri</span>
+                <i class="menu-item-arrow fa fa-angle-down"></i>
+            </div>
+                    <!-- menu-item -->
+            <ul class="sl-menu-sub nav flex-column">
+                <li class="nav-item"><a href="{%url 'list-plp-record'%}" class="nav-link">List</a></li>
+                <li class="nav-item"><a href="{%url 'add-plp-record'%}" class="nav-link">Form</a></li>
+            </ul>
+        </a>
+
+        <!-- sl-menu-link Halaman Rapor Santri-->
+        <a href="#" class="sl-menu-link">
+            <div class="sl-menu-item">
+                        <!-- <i class="menu-item-icon icon ion-ios-photos-outline tx-20"></i> -->
+                <span class="menu-item-label">Menu Export</span>
+                <i class="menu-item-arrow fa fa-angle-down"></i>
+            </div>
+                    <!-- menu-item -->
+            <ul class="sl-menu-sub nav flex-column">
+                <li class="nav-item"><a href="{%url 'export-excel'%}" class="nav-link">Export List Nilai</a></li>
+                <li class="nav-item"><a href="{%url 'export-bundle'%}" class="nav-link">Export Bundle</a></li>
+            </ul>
+        </a>
+{%comment%}
+        <!-- sl-menu-link payment setting-->
+        <a href="#" class="sl-menu-link">
+            <div class="sl-menu-item">
+                        <!-- <i class="menu-item-icon icon ion-ios-photos-outline tx-20"></i> -->
+                <span class="menu-item-label">Bill</span>
+                <i class="menu-item-arrow fa fa-angle-down"></i>
+            </div>
+                    <!-- menu-item -->
+            <ul class="sl-menu-sub nav flex-column">
+                <li class="nav-item"><a href="{%url 'list-bill'%}" class="nav-link">List</a></li>
+                <li class="nav-item"><a href="{%url 'add-bill'%}" class="nav-link">Bill For Student</a></li>
+            </ul>
+        </a>
+{%endcomment%}
+
+
+{%comment%}
+        <!-- sl-menu-link Subject -->
+        <a href="#" class="sl-menu-link">
+            <div class="sl-menu-item">
+                        <!-- <i class="menu-item-icon icon ion-ios-photos-outline tx-20"></i> -->
+                <span class="menu-item-label">Subject</span>
+                <i class="menu-item-arrow fa fa-angle-down"></i>
+            </div>
+                    <!-- menu-item -->
+            <ul class="sl-menu-sub nav flex-column">
+                <li class="nav-item"><a href="{%url 'list-subject'%}" class="nav-link">List</a></li>
+                <li class="nav-item"><a href="{%url 'add-subject'%}" class="nav-link">Add Subject</a></li>
+                <li class="nav-item"><a href="{%url 'list-subject-doc'%}" class="nav-link">List Document</a></li>
+                <li class="nav-item"><a href="{%url 'add-subject-doc'%}" class="nav-link">Add Document</a></li>
+            </ul>
+        </a>
+{%endcomment%}
+
+
+{%comment%}
+          <!-- sl-menu-link file-->
+        <a href="#" class="sl-menu-link">
+            <div class="sl-menu-item">
+                <!-- <i class="menu-item-icon icon ion-ios-photos-outline tx-20"></i> -->
+                <span class="menu-item-label">File</span>
+                <i class="menu-item-arrow fa fa-angle-down"></i>
+            </div>
+            <!-- menu-item -->
+            <ul class="sl-menu-sub nav flex-column">
+                <li class="nav-item"><a href="{%url 'add-file'%}" class="nav-link">Add</a></li>
+                <li class="nav-item"><a href="{%url 'list-file'%}" class="nav-link">List</a></li>
+            </ul>
+        </a>
+{%endcomment%}
+    </div>
+    <!-- sl-sideleft-menu -->
+
+    <br>
+</div>
+<!-- sl-sideleft -->
+<!-- ########## END: LEFT PANEL ########## -->
+
+<!-- ########## START: HEAD PANEL ########## -->
+<div class="sl-header">
+    <div class="sl-header-left">
+        <div class="navicon-left hidden-md-down"><a id="btnLeftMenu" href=""><i class="icon ion-navicon-round"></i></a>
+        </div>
+        <div class="navicon-left hidden-lg-up"><a id="btnLeftMenuMobile" href=""><i class="icon ion-navicon-round"></i></a>
+        </div>
+    </div>
+    <!-- sl-header-left -->
+
+    <div class="sl-header-right">
+        <nav class="nav">
+          <div class="dropdown">
+            <a href="" class="nav-link nav-link-profile" data-toggle="dropdown">
+              <span class="logged-name">{{ user.full_name }}</span>
+              <img src="{%static 'img/img3.jpg'%}" class="wd-32 rounded-circle" alt="">
+            </a>
+            <div class="dropdown-menu dropdown-menu-header wd-200">
+              <ul class="list-unstyled user-profile-nav">
+                <li><a href="#"><i class="icon ion-ios-gear-outline"></i> To Do</a></li>
+                <li><a href="/update-password/"><i class="icon ion-ios-person-outline"></i> Change password</a></li>
+                <li><a href="{%url 'logout'%}"><i class="icon ion-power"></i> Sign Out</a></li>
+              </ul>
+            </div><!-- dropdown-menu -->
+          </div><!-- dropdown -->
+        </nav>
+    </div><!-- sl-header-right -->
+
+</div>
+<!-- sl-header -->
+<!-- ########## END: HEAD PANEL ########## -->
+
+<!-- ########## START: RIGHT PANEL ########## -->
+
+<!-- sl-sideright -->
+<!-- ########## END: RIGHT PANEL ########## --->

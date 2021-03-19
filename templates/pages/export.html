@@ -1,0 +1,138 @@
+{%extends 'Root.html'%}
+{%load static%}
+{%block content%}
+{% for message in messages %}
+  <div class="alert {{ message.tags }} alert-dismissible" role="alert">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+    {{ message }}
+  </div>
+{% endfor %}
+{%if code == 1 %}
+    <form action="{%url 'export-excel'%}" method="post">
+        {%csrf_token%}
+        <div class="col-lg-12">
+            <div class="form-group mg-b-10-force">
+                <label class="form-control-label">Halaman Rapor</label>
+                    <select required class="form-control select2-show-search" data-placeholder="Pilih Halaman" name="plp_code", id='plp_code'>
+                        {%for item in plps%}
+                            <option value="{{item.plp_code}}">{{item.plp_name}}</option>
+                        {%endfor%}
+                    </select>
+            </div>
+        </div>
+
+        <div class="col-lg-12">
+            <div class="form-group mg-b-10-force">
+                <label class="form-control-label">Range Awal</label>
+                    <input type='text' required class="fc-datepicker form-control" data-placeholder="Tanggal" name="s_date", id='s_date'>
+            </div>
+        </div>
+
+        <div class="col-lg-12">
+            <div class="form-group mg-b-10-force">
+                <label class="form-control-label">Range Akhir</label>
+                    <input type='text' required class="fc-datepicker form-control" data-placeholder="Tanggal" name="e_date", id='e_date'>
+            </div>
+        </div>
+        <button  type="submit"  class="btn btn-success" onclick="return confirm('Are you sure?');">Export</button>
+        {%if link != 0 %}
+        <a href="{{link}}">Result</a>
+        {%endif%}        
+    </form>
+{%else%}
+    <form action="{%url 'export-bundle'%}" method="post">
+        {%csrf_token%}
+        <div class="col-lg-12">
+            <div class="form-group mg-b-10-force">
+                <label class="form-control-label">Santri</label>
+                    <select required class="form-control select2-show-search" data-placeholder="Pilih Santri" name="nis_student", id='nis_student'>
+                        {%for item in students%}
+                            <option value="{{item.nis_student}}">{{item.name_student}}</option>
+                        {%endfor%}
+                    </select>
+            </div>
+        </div>
+
+        <div class="col-lg-12">
+            <div class="form-group mg-b-10-force">
+                <label class="form-control-label">Range Awal</label>
+                    <input type='text' required class="fc-datepicker form-control" data-placeholder="Tanggal" name="s_date", id='s_date'>
+            </div>
+        </div>
+
+        <div class="col-lg-12">
+            <div class="form-group mg-b-10-force">
+                <label class="form-control-label">Range Akhir</label>
+                    <input type='text' required class="fc-datepicker form-control" data-placeholder="Tanggal" name="e_date", id='e_date'>
+            </div>
+        </div>
+        <button  type="submit"  class="btn btn-success" onclick="return confirm('Are you sure?');">Export</button>
+        {%if link != 0 %}
+        <a href="{{link}}">Result</a>
+        {%endif%}  
+    </form>
+{%endif%}
+
+{%endblock content%}
+{%block script%}
+<script>
+    $(function(){
+
+      'use strict';
+
+      $('.select2').select2({
+        minimumResultsForSearch: Infinity
+      });
+
+      // Select2 by showing the search
+      $('.select2-show-search').select2({
+        minimumResultsForSearch: ''
+      });
+
+      // Select2 with tagging support
+      $('.select2-tag').select2({
+        tags: true,
+        tokenSeparators: [',', ' ']
+      });
+
+      // Datepicker
+      $('.fc-datepicker').datepicker({
+        showOtherMonths: false,
+        selectOtherMonths: false,
+        changeMonth: true,
+        changeYear: true,
+        yearRange: '1990:2019',
+        dateFormat: 'yy-mm-dd',
+      });
+
+      $('#datepickerNoOfMonths').datepicker({
+        showOtherMonths: true,
+        selectOtherMonths: true,
+        numberOfMonths: 2
+      });
+
+      // Color picker
+      $('#colorpicker').spectrum({
+        color: '#17A2B8'
+      });
+
+      $('#showAlpha').spectrum({
+        color: 'rgba(23,162,184,0.5)',
+        showAlpha: true
+      });
+
+      $('#showPaletteOnly').spectrum({
+          showPaletteOnly: true,
+          showPalette:true,
+          color: '#DC3545',
+          palette: [
+              ['#1D2939', '#fff', '#0866C6','#23BF08', '#F49917'],
+              ['#DC3545', '#17A2B8', '#6610F2', '#fa1e81', '#72e7a6']
+          ]
+      });
+
+    });
+  </script>
+{%endblock script%}

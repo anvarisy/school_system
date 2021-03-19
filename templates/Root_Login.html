@@ -1,0 +1,42 @@
+{% load static%}
+{% load crispy_forms_tags %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <link rel="shortcut icon" href="{%static 'img/favicon.ico'%}" type="image/x-icon">
+
+    <title>Account</title>
+
+    <!-- vendor css -->
+    <link href="{% static 'lib/font-awesome/css/font-awesome.css'%}" rel="stylesheet">
+    <link href="{% static '/lib/Ionicons/css/ionicons.css'%}" rel="stylesheet">
+
+
+    <!-- Starlight CSS -->
+    <link rel="stylesheet" href="{% static 'css/starlight.css'%}">
+</head>
+
+<body>
+    <div class="d-flex align-items-center justify-content-center bg-sl-primary ht-100v">
+
+        <div class="login-wrapper wd-300 wd-xs-350 pd-25 pd-xs-40 bg-white">
+                {%block content%}
+                {%endblock content%}
+        </div>
+        <!-- login-wrapper -->
+    </div>
+    <!-- d-flex -->
+
+    <script src="{% static 'lib/jquery/jquery.js' %}"></script>
+    <script src="{% static 'lib/popper.js/popper.js'%}"></script>
+    <script src="{% static 'lib/bootstrap/bootstrap.js'%}"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+</body>
+
+</html>

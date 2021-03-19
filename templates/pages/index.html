@@ -1,0 +1,55 @@
+{%extends 'Root.html'%}
+{%load static%}
+{% load django_tables2 %}
+{% load bootstrap3 %}
+{%block css%}
+<style>
+    /*
+    table
+    {
+        table-layout: fixed;
+        width: 100px;
+    }
+    */
+</style>
+{%endblock css%}
+{%block content%}
+{% for message in messages %}
+  <div class="alert {{ message.tags }} alert-dismissible" role="alert">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+    {{ message }}
+  </div>
+{% endfor %}
+{%comment%}
+    {%if filter %}
+        <form action="" method="get" class="form form-inline">
+            {% bootstrap_form filter.form layout='inline' %}
+            {% bootstrap_button 'Filter' %}
+        </form>
+    {%endif %}
+{%endcomment%}
+<form action="{{del}}" method="post">
+    {%csrf_token%}
+{% render_table table %}
+<button  type="submit"  class="btn btn-danger" onclick="return confirm('Are you sure?');">Delete All</button>
+</form>
+{%endblock content%}
+{%block content_ii%}
+<form action="{{post_import}}" method="post" enctype="multipart/form-data">
+    {%csrf_token%}
+    <input type="file" name="file_import" required>
+    <button  type="submit"  class="btn btn-success" >Import Data</button>
+</form>
+{%endblock content_ii%}
+{%block script%}
+<script language="JavaScript">
+    function toggle(source) {
+        checkboxes = document.getElementsByName('selection');
+        for(var i in checkboxes)
+            checkboxes[i].checked = source.checked;
+    }
+
+    </script>
+{%endblock script%}
