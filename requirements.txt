@@ -1,5 +1,5 @@
 pillow
-mysqlclient
+
 django-filter
 django-tables2
 django-crispy-forms
