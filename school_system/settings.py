@@ -87,10 +87,10 @@ DATABASES = {
 #         # 'PASSWORD': 'creati19_api',
 #         # 'HOST': 'cerberus.jagoanhosting.com',
         
-#         'NAME': 'school_management_system',                  
-#         'USER': 'root',             
-#         'PASSWORD': '',                  
-#         'HOST': 'localhost', 
+#         'NAME': 'sekola43_smsi',                  
+#         'USER': 'sekola43_smsi',             
+#         'PASSWORD': 'koala_panda_123',                  
+#         'HOST': 'phoenix.jagoanhosting.com', 
 #         'PORT': '3306',
 #         'OPTIONS': {
 #             # 'read_default_file': 'my.cnf',
