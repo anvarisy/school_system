@@ -159,10 +159,8 @@ IMPORT_EXPORT_USE_TRANSACTIONS = True
 LOGIN_REDIRECT_URL = '/'
 STATIC_URL = '/static/'
 # LOGIN_URL = '/login'
-STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, 'static'),)
-
-STATIC_ROOT = os.path.join(BASE_DIR, 'root')
+STATIC_URL = '/static/'
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static'),]
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
