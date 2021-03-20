@@ -25,7 +25,7 @@ SECRET_KEY = 'pijy3$)^wt3s(n*@a#*!6um10+5@hv6+s4s@2#1wd)her1hf+d'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost','127.0.0.1']
+ALLOWED_HOSTS = ['localhost','127.0.0.1','smsi.sekolahimpian.com']
 
 
 # Application definition
