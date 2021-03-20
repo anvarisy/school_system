@@ -1,8 +1,8 @@
 from django import forms
 from django.contrib.auth.forms import PasswordChangeForm, ReadOnlyPasswordHashField, UserChangeForm, UserCreationForm
 from app.models import bills, parents, plprecord, plps, students, subject_doc, subjects, uploadrecords, user
-from searchableselect.widgets import SearchableSelect
-from dal import autocomplete
+# from searchableselect.widgets import SearchableSelect
+# from dal import autocomplete
 
 class RegisterForm(UserCreationForm):
     class Meta:
