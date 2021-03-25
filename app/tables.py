@@ -6,6 +6,7 @@ from django.utils.html import format_html
 class UserTable(tables.Table):
     delete = tables.LinkColumn("delete-user", text="Delete", args=[A("pk")],orderable=False)
     update = tables.LinkColumn("update-user", text="Update", args=[A("pk")],orderable=False)
+    # detail = tables.LinkColumn("detail-user", text="Update", args=[A("pk")],orderable=False)
     class Meta:
         model = user
         template_name = "django_tables2/bootstrap4.html"

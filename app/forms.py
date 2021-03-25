@@ -81,7 +81,7 @@ class PlpRecordForm(forms.ModelForm):
     )
 
     plp = forms.ModelChoiceField(
-        queryset=plps.objects.all(),
+        queryset=plps.objects.all().order_by('plp_code'),
         widget=forms.Select(attrs={
           'class': 'select2-show-search' #is this POSSIBLE?
           }) 
@@ -94,7 +94,7 @@ class PlpRecordForm(forms.ModelForm):
     class Meta:
         model = plprecord
         fields = '__all__'
-        exclude= ('report_result','o_nilai')
+        exclude= ('report_result','o_nilai','report_excel')
 
 def get_param(param):
     return param

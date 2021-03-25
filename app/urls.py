@@ -1,6 +1,6 @@
 from django.urls import path,re_path, include
 from django.conf.urls import url
-from app.views import AddBill, AddFile, AddParent, AddPlp, AddPlpRecord, AddStudent, AddSubject, AddSubjectDoc, AddUser, CheckAPi, DeleteAllBill, DeleteAllParent, DeleteAllPlp, DeleteAllPlpRecord, DeleteAllStudent, DeleteAllSubject, DeleteAllSubjectDoc, DeleteBill, DeleteParent, DeletePlp, DeletePlpRecord, DeleteStudent, DeleteSubject, DeleteSubjectDoc, DeleteUser, FillRapor, ImportParent, ImportStudent, ListBill, ListFile, ListParent, ListPlp, ListPlpRecord, ListStudent, ListSubject, ListSubjectDoc, ListUser, PrintPlpRecord, UpdateBill, UpdateParent, UpdatePassword, UpdatePlp, UpdatePlpRecord, UpdateStudent, UpdateSubject, UpdateSubjectDoc, UpdateUser, ViewExportBundle, ViewExportList, ViewHomepage, ViewLogin, ViewLogout
+from app.views import AddBill, AddFile, AddParent, AddPlp,ViewCleanExport, AddPlpRecord, AddStudent, AddSubject, AddSubjectDoc, AddUser, CheckAPi, DeleteAllBill, DeleteAllParent, DeleteAllPlp, DeleteAllPlpRecord, DeleteAllStudent, DeleteAllSubject, DeleteAllSubjectDoc, DeleteBill, DeleteParent, DeletePlp, DeletePlpRecord, DeleteStudent, DeleteSubject, DeleteSubjectDoc, DeleteUser, FillRapor, ImportParent, ImportStudent, ListBill, ListFile, ListParent, ListPlp, ListPlpRecord, ListStudent, ListSubject, ListSubjectDoc, ListUser, PrintPlpRecord, UpdateBill, UpdateParent, UpdatePassword, UpdatePlp, UpdatePlpRecord, UpdateStudent, UpdateSubject, UpdateSubjectDoc, UpdateUser, ViewExportBundle, ViewExportList, ViewHomepage, ViewLogin, ViewLogout
 from django.contrib.auth.views import PasswordResetView, PasswordResetDoneView, PasswordResetConfirmView,\
 PasswordResetCompleteView,PasswordChangeView
 from django.contrib.auth import views as auth_views
@@ -18,6 +18,7 @@ urlpatterns = [
     path('add-user/',AddUser.as_view(),name='add-user'),
     path('update-password/',UpdatePassword.as_view(template_name = "registration/password_change_form.html"),name='update-password'),
     path('delete-user/<str:pk>/', DeleteUser.as_view(), name='delete-user'),
+  
     path('update-user/<str:pk>/', UpdateUser.as_view(), name='update-user'),
     #parent
     path('list-parent/',ListParent.as_view(),name='list-parent'),
@@ -75,5 +76,6 @@ urlpatterns = [
     path('delete-subject-doc/<str:pk>/',DeleteSubjectDoc.as_view(),name='delete-subject-doc'),
     #Export
     path('export-excel/',ViewExportList.as_view(),name='export-excel'),
-    path('export-bundle/',ViewExportBundle.as_view(),name='export-bundle')
+    path('export-bundle/',ViewExportBundle.as_view(),name='export-bundle'),
+    path('export-delete/',ViewCleanExport.as_view(),name='export-delete')
 ]

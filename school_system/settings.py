@@ -81,29 +81,29 @@ WSGI_APPLICATION = 'school_system.wsgi.application'
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
 DATABASES = {
-#    'default': {
-#        'ENGINE': 'django.db.backends.mysql',
-#         # 'NAME': 'creati19_api',
-#         # 'USER': 'creati19_api',
-#         # 'PASSWORD': 'creati19_api',
-#         # 'HOST': 'cerberus.jagoanhosting.com',
+   'default': {
+       'ENGINE': 'django.db.backends.mysql',
+        # 'NAME': 'creati19_api',
+        # 'USER': 'creati19_api',
+        # 'PASSWORD': 'creati19_api',
+        # 'HOST': 'cerberus.jagoanhosting.com',
         
-#         'NAME': 'sekola43_smsi',                  
-#         'USER': 'sekola43_smsi',             
-#         'PASSWORD': 'koala_panda_123',                  
-#         'HOST': 'phoenix.jagoanhosting.com', 
-#         'PORT': '3306',
-#         'OPTIONS': {
-#             # 'read_default_file': 'my.cnf',
-#             'init_command': 'SET default_storage_engine=INNODB',
-#             'init_command': "SET sql_mode='STRICT_TRANS_TABLES'"
-#         },
+        'NAME': 'sekola43_smsi',                  
+        'USER': 'sekola43_smsi',             
+        'PASSWORD': 'koala_panda_123',                  
+        'HOST': 'cerberus.jagoanhosting.com', 
+        'PORT': '3306',
+        'OPTIONS': {
+            # 'read_default_file': 'my.cnf',
+            'init_command': 'SET default_storage_engine=INNODB',
+            'init_command': "SET sql_mode='STRICT_TRANS_TABLES'"
+        },
 
-#     }
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.sqlite3',
+    #     'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+    # }
 
 }
 

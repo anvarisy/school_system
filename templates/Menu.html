@@ -28,59 +28,67 @@
         </a>
        
         <!-- sl-menu-link parent-->
-        <a href="#" class="sl-menu-link">
+        <a href="{%url 'list-parent'%}" class="sl-menu-link">
             <div class="sl-menu-item">
                 <!-- <i class="menu-item-icon icon ion-ios-photos-outline tx-20"></i> -->
                 <span class="menu-item-label">Ortu</span>
-                <i class="menu-item-arrow fa fa-angle-down"></i>
+                <!-- <i class="menu-item-arrow fa fa-angle-down"></i> -->
             </div>
             <!-- menu-item -->
+            {%comment%}
             <ul class="sl-menu-sub nav flex-column">
                 <li class="nav-item"><a href="{%url 'add-parent'%}" class="nav-link">Form Ortu</a></li>
                 <li class="nav-item"><a href="{%url 'list-parent'%}" class="nav-link">List Ortu</a></li>
             </ul>
+            {%endcomment%}
         </a>
 
                 <!-- sl-menu-link student-->
-        <a href="#" class="sl-menu-link">
+        <a href="{%url 'list-student'%}" class="sl-menu-link">
             <div class="sl-menu-item">
                         <!-- <i class="menu-item-icon icon ion-ios-photos-outline tx-20"></i> -->
                 <span class="menu-item-label">Santri</span>
-                <i class="menu-item-arrow fa fa-angle-down"></i>
+                <!-- <i class="menu-item-arrow fa fa-angle-down"></i> -->
             </div>
+            {%comment%}
                     <!-- menu-item -->
             <ul class="sl-menu-sub nav flex-column">
                 <li class="nav-item"><a href="{%url 'add-student'%}" class="nav-link">Form Santri</a></li>
                 <li class="nav-item"><a href="{%url 'list-student'%}" class="nav-link">List Santri</a></li>
             </ul>
+            {%endcomment%}
         </a>
 
         <!-- sl-menu-link Halaman Rapor-->
-        <a href="#" class="sl-menu-link">
+        <a href="{%url 'list-plp'%}" class="sl-menu-link">
             <div class="sl-menu-item">
                         <!-- <i class="menu-item-icon icon ion-ios-photos-outline tx-20"></i> -->
                 <span class="menu-item-label">Halaman Rapor</span>
-                <i class="menu-item-arrow fa fa-angle-down"></i>
+                <!-- <i class="menu-item-arrow fa fa-angle-down"></i> -->
             </div>
+            {%comment%}
                     <!-- menu-item -->
             <ul class="sl-menu-sub nav flex-column">
                 <li class="nav-item"><a href="{%url 'list-plp'%}" class="nav-link">List</a></li>
                 <li class="nav-item"><a href="{%url 'add-plp'%}" class="nav-link">Form</a></li>
             </ul>
+            {%endcomment%}
         </a>
 
         <!-- sl-menu-link Halaman Rapor Santri-->
-        <a href="#" class="sl-menu-link">
+        <a href="{%url 'list-plp-record'%}" class="sl-menu-link">
             <div class="sl-menu-item">
                         <!-- <i class="menu-item-icon icon ion-ios-photos-outline tx-20"></i> -->
                 <span class="menu-item-label">Halaman Rapor Santri</span>
-                <i class="menu-item-arrow fa fa-angle-down"></i>
+                <!-- <i class="menu-item-arrow fa fa-angle-down"></i> -->
             </div>
+            {%comment%}
                     <!-- menu-item -->
             <ul class="sl-menu-sub nav flex-column">
                 <li class="nav-item"><a href="{%url 'list-plp-record'%}" class="nav-link">List</a></li>
                 <li class="nav-item"><a href="{%url 'add-plp-record'%}" class="nav-link">Form</a></li>
             </ul>
+            {%endcomment%}
         </a>
 
         <!-- sl-menu-link Halaman Rapor Santri-->
@@ -94,6 +102,7 @@
             <ul class="sl-menu-sub nav flex-column">
                 <li class="nav-item"><a href="{%url 'export-excel'%}" class="nav-link">Export List Nilai</a></li>
                 <li class="nav-item"><a href="{%url 'export-bundle'%}" class="nav-link">Export Bundle</a></li>
+                <li class="nav-item"><a href="{%url 'export-delete'%}" class="nav-link">Clean Export Bundle</a></li>
             </ul>
         </a>
 {%comment%}

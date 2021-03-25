@@ -30,10 +30,12 @@
         </form>
     {%endif %}
 {%endcomment%}
+
 <form action="{{del}}" method="post">
     {%csrf_token%}
 {% render_table table %}
 <button  type="submit"  class="btn btn-danger" onclick="return confirm('Are you sure?');">Delete All</button>
+<a class="btn btn-success" href="{{ins}}">Insert Data</a>
 </form>
 {%endblock content%}
 {%block content_ii%}

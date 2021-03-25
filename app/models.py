@@ -1,6 +1,8 @@
 from django.db import models
 from django.contrib.auth.models  import BaseUserManager, AbstractBaseUser, PermissionsMixin
 from django.utils import timezone
+from django.db.models.signals import post_delete
+from django.dispatch import receiver
 # Create your models here.
 class UserManager(BaseUserManager):
     def create_user(self,email,full_name, password=None):
@@ -124,6 +126,10 @@ class students(models.Model):
     def __str__(self):
         return '{0}, {1}'.format(self.nis_student, self.name_student)
 
+@receiver(post_delete, sender=students)
+def submission_delete_students(sender, instance, **kwargs):
+    instance.photo_student.delete(False) 
+
 class bill_types(models.Model):
     bill_type = models.CharField(max_length=20)
 
@@ -165,6 +171,11 @@ class plps(models.Model):
     def __str__(self):
         return '{0}, {1}'.format(self.plp_code, self.plp_name)
 
+@receiver(post_delete, sender=plps)
+def submission_delete_plps(sender, instance, **kwargs):
+    instance.plp_rapor_qbs.delete(False) 
+    instance.plp_rapor_fq.delete(False) 
+
 def rapor_record_directory_path(instance, filename):
     # file will be uploaded to MEDIA_ROOT/user_<id>/<filename>
     # return 'user_{0}/{1}'.format(instance.user.email, filename)
@@ -184,6 +195,10 @@ class plprecord(models.Model):
     o_nilai = models.TextField(blank=True, null=True)
     def __str__(self):
         return '{0}, {1}'.format(self.student, self.plp)
+
+@receiver(post_delete, sender=plprecord)
+def submission_delete_plprecord(sender, instance, **kwargs):
+    instance.report_result.delete(False) 
 
 # class content_rapor(models.Model):
 #     plprecord = models.ForeignKey(plprecord, on_delete=models.CASCADE)

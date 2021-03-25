@@ -8,7 +8,7 @@ from django_tables2.views import SingleTableMixin, SingleTableView
 from app.tables import BillTable, FileTable, ParentTable, PlpRecordTable, PlpTable, StudentTable, SubjectDocTable, SubjectTable, UserTable
 from app.models import bills, parents, plprecord, plps, students, subject_doc, subjects, uploadrecords, user
 from app.filters import BillFilter, ParentFilter, PlpFilter, PlpRecordFilter, StudentFilter, SubjectDocFilter, UserFilter
-from django.views.generic import CreateView, DeleteView, UpdateView,FormView
+from django.views.generic import CreateView, DeleteView, UpdateView,FormView,DetailView
 #Raw Anvarisy
 from django.views.generic.edit import BaseDeleteView
 from django.views.generic.list import MultipleObjectTemplateResponseMixin
@@ -72,6 +72,7 @@ class AddUser(PermissionRequiredMixin,LoginRequiredMixin, CreateView):
             us.user_permissions.add(perm)
         return redirect('list-user')
 
+
 class UpdateUser(UpdateView, LoginRequiredMixin,PermissionRequiredMixin):
     permission_required = ('app.im_admin')
     template_name = 'pages/form.html'
@@ -133,6 +134,7 @@ class ListParent(LoginRequiredMixin,SingleTableMixin, FilterView):
         context = super(ListParent, self).get_context_data(**kwargs)
         context['del'] = '/del-par/'
         context['imported'] = True
+        context['ins'] = '/add-parent/'
         context['post_import']='/import-parent/'
         return context
 
@@ -250,6 +252,7 @@ class ListStudent(LoginRequiredMixin,SingleTableMixin, FilterView):
         context = super(ListStudent, self).get_context_data(**kwargs)
         context['del'] = '/del-stud/'
         context['imported'] = True
+        context['ins'] = '/add-student/'
         context['post_import']='/import-student/'
         return context
 
@@ -394,6 +397,7 @@ class ListPlp(LoginRequiredMixin,SingleTableMixin, FilterView):
     def get_context_data(self, **kwargs):
         context = super(ListPlp, self).get_context_data(**kwargs)
         context['del'] = '/del-plp/'
+        context['ins'] = '/add-plp/'
         return context
 
 class DeleteAllPlp(View):
@@ -449,6 +453,7 @@ class ListPlpRecord(LoginRequiredMixin,SingleTableMixin, FilterView):
     def get_context_data(self, **kwargs):
         context = super(ListPlpRecord, self).get_context_data(**kwargs)
         context['del'] = '/del-plp-record/'
+        context['ins'] = '/add-plp-record/'
         return context
 
 class DeleteAllPlpRecord(View):
@@ -578,42 +583,46 @@ class FillRapor(View):
         return render(request, self.template,{'form':form,'button':'Submit','title':'Page Rapor '+student.name_student+'-'+plp.plp_name})
     
     def post(self, request, pk):
-        body = request.POST.dict()
-        body.pop('csrfmiddlewaretoken',None)
-        # print(body)
-        plp_rec = plprecord.objects.get(id=pk)
-        plp = plps.objects.get(plp_code=plp_rec.plp_id)
-        student = students.objects.get(nis_student=plp_rec.student_id)
-        # document = MailMerge(plp.plp_rapor)
-        document = None
-        if student.sex_student=='L':
-            document = MailMerge(plp.plp_rapor_qbs)
-        else:
-            document = MailMerge(plp.plp_rapor_fq)
-        body['nis_student'] = student.nis_student
-        body['name_student'] = student.name_student
-        body['sem_student'] = student.sem_student
-        body['class_student'] = student.class_student
-        print(body)
-        plp_rec.o_nilai = body
-        plp_rec.save()
-        # email_user = request.user.email
-        # content = {
-        #     'plp_id':plp.plp_code,
-        #     'student_id': student.nis_student,
-        #     'user_id':email_user,
-        #     'o_nilai':body,
+        try :
+            body = request.POST.dict()
+            body.pop('csrfmiddlewaretoken',None)
+            # print(body)
+            plp_rec = plprecord.objects.get(id=pk)
+            plp = plps.objects.get(plp_code=plp_rec.plp_id)
+            student = students.objects.get(nis_student=plp_rec.student_id)
+            # document = MailMerge(plp.plp_rapor)
+            document = None
+            if student.sex_student=='L':
+                document = MailMerge(plp.plp_rapor_qbs)
+            else:
+                document = MailMerge(plp.plp_rapor_fq)
+            body['nis_student'] = student.nis_student
+            body['name_student'] = student.name_student
+            body['sem_student'] = student.sem_student
+            body['class_student'] = student.class_student
+            print(body)
+            plp_rec.o_nilai = body
+            plp_rec.save()
+            # email_user = request.user.email
+            # content = {
+            #     'plp_id':plp.plp_code,
+            #     'student_id': student.nis_student,
+            #     'user_id':email_user,
+            #     'o_nilai':body,
 
-        # }
-        # # o = content_rapor.objects.create(**content)
-        # o.save()
-        document.merge(**body)
-        result = os.path.join(BASE_DIR, 'media/Students/'+str(student.nis_student)+"/"+plp.plp_name+"_"+str(student.class_student)+"_"+student.sem_student+".docx")
-        a = document.write(result)
-        print(type(a))
-        plp_rec.report_result = result
-        plp_rec.save()
-        return redirect('list-plp-record')
+            # }
+            # # o = content_rapor.objects.create(**content)
+            # o.save()
+            document.merge(**body)
+            result = os.path.join(BASE_DIR, 'media/Students/'+str(student.nis_student)+"/"+plp.plp_name+"_"+str(student.class_student)+"_"+student.sem_student+".docx")
+            a = document.write(result)
+            print(type(a))
+            plp_rec.report_result = result
+            plp_rec.save()
+            return redirect('list-plp-record')
+        except :
+            messages.add_message(request, messages.WARNING, 'Update Photo Santri Terlebih Dahulu !')
+            return redirect('list-plp-record')
 
 #---------------------Subject----------------------------
 class ListSubject(LoginRequiredMixin,SingleTableMixin, FilterView):
@@ -738,14 +747,10 @@ class ViewExportList(View):
         rec = plprecord.objects.filter(plp_id=plp,join_plp__range=(s_date, e_date))
         data_json =[]
         for item in rec:
-            a = {
-                "nis":item.student_id,
-                "date":item.join_plp
-            }
             o = item.o_nilai.replace("\'", "\"")
             o = json.loads(o)
             # c = {key: value for (key, value) in (a.items() + json.loads(o).items())}
-            c = {**a, **o}
+            c = o
             data_json.append(c)
             # print(type(a))
             # print(type(o))
@@ -760,34 +765,46 @@ class ViewExportBundle(View):
     def get(self, request):
         return render(request, self.template,{'students':self.data_student,'code':2,'link':0})
     def post(self, request):
-        nis = request.POST['nis_student']
-        s_date = request.POST['s_date']
-        e_date = request.POST['e_date']
-        rec = plprecord.objects.filter(student_id=nis,join_plp__range=(s_date, e_date)).order_by('position')
-        docs = []
-        link = '/media/Export/'+str(nis)+"_"+str(s_date)+"_"+str(e_date)+".docx"
-        for item in rec:
-            docs.append(str(item.report_result))
-        merged_document = Document()
-        print(docs)
-        result = Document(docs[0])
-        result.add_page_break()
-        composer = Composer(result)
-        for i in range(1, len(docs)):
-            doc = Document(docs[i])
-            if i != len(docs) - 1:
-                doc.add_page_break()
-            composer.append(doc)
-        composer.save(os.path.join(BASE_DIR, 'media/Export/'+str(nis)+"_"+str(s_date)+"_"+str(e_date)+".docx"))
-        # for index, file in enumerate(docs):
-        #     sub_doc = Document(file)
+        try :
+            nis = request.POST['nis_student']
+            student = students.objects.get(nis_student=nis)
+            print(student)
+            s_date = request.POST['s_date']
+            e_date = request.POST['e_date']
+            rec = plprecord.objects.filter(student_id=nis,join_plp__range=(s_date, e_date)).order_by('position')
+            docs = []
+            link = '/media/Export/'+str(student.name_student)+"_"+str(student.class_student)+"_"+str(student.sem_student)+".docx"
+            for item in rec:
+                docs.append(str(item.report_result))
+            merged_document = Document()
+            print(docs)
+            result = Document(docs[0])
+            result.add_page_break()
+            composer = Composer(result)
+            for i in range(1, len(docs)):
+                doc = Document(docs[i])
+                if i != len(docs) - 1:
+                    doc.add_page_break()
+                composer.append(doc)
+            composer.save(os.path.join(BASE_DIR, 'media/Export/'+str(student.name_student)+"_"+str(student.class_student)+"_"+str(student.sem_student)+".docx"))
+            # for index, file in enumerate(docs):
+            #     sub_doc = Document(file)
 
-        # # Don't add a page break if you've reached the last file.
-        #     if index < len(docs)-1:
-        #         sub_doc.add_page_break()
+            # # Don't add a page break if you've reached the last file.
+            #     if index < len(docs)-1:
+            #         sub_doc.add_page_break()
 
-        #     for element in sub_doc.element.body:
-        #         merged_document.element.body.append(element)
-        # merged_document.save(os.path.join(BASE_DIR, 'media/Export/'+str(nis)+"_"+str(s_date)+"_"+str(e_date)+".docx"))
-        
-        return render(request, self.template,{'students':self.data_student,'code':2,'link':link})
+            #     for element in sub_doc.element.body:
+            #         merged_document.element.body.append(element)
+            # merged_document.save(os.path.join(BASE_DIR, 'media/Export/'+str(nis)+"_"+str(s_date)+"_"+str(e_date)+".docx"))
+            
+            return render(request, self.template,{'students':self.data_student,'code':2,'link':link})
+        except:
+            return render(request, self.template,{'students':self.data_student,'code':2,'link':0})
+
+class ViewCleanExport(View):
+    def get(self, request):
+        dir = os.path.join(BASE_DIR, 'media/Export/')
+        for f in os.listdir(dir):
+            os.remove(os.path.join(dir, f))
+        return redirect('home')
