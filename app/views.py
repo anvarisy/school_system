@@ -2,6 +2,7 @@ from django.shortcuts import redirect, render
 from django.contrib import messages
 from django.views import View
 import pandas as pd
+import numpy as np
 import django_tables2 as tables
 from django_filters.views import FilterView
 from django_tables2.views import SingleTableMixin, SingleTableView
@@ -454,6 +455,8 @@ class ListPlpRecord(LoginRequiredMixin,SingleTableMixin, FilterView):
         context = super(ListPlpRecord, self).get_context_data(**kwargs)
         context['del'] = '/del-plp-record/'
         context['ins'] = '/add-plp-record/'
+        context['imported'] = True
+        context['post_import']='/import-plp-record/'
         return context
 
 class DeleteAllPlpRecord(View):
@@ -545,6 +548,53 @@ class PrintPlpRecord(View, LoginRequiredMixin):
         plp_rec.report_result = result
         plp_rec.save()
         return redirect('list-plp-record')
+
+class ImportPlpRecord(View, LoginRequiredMixin):
+    def post(self, request):
+        data = pd.read_excel(request.FILES.get('file_import'),dtype=np.object)
+        df = pd.DataFrame(data)
+        df = df.applymap(str)
+        df_json = df.to_json(orient='records',force_ascii=False)
+        d = json.loads(df_json)
+
+        key_to_cut = ['student_id','plp_id','position']
+        # Save data no rapor
+        # -----------------------------Uncomment To Enable Save---------------------------------
+        for item in d:
+            # a = {}
+            rec = plprecord.objects.create(
+                student_id=item['student_id'],
+                plp_id=item['plp_id'],
+                position=item['position']
+            )
+            
+            plp = plps.objects.get(plp_code=item['plp_id'])
+            student = students.objects.get(nis_student=item['student_id'])
+            document = None
+            if student.sex_student=='L':
+                document = MailMerge(plp.plp_rapor_qbs)
+            else:
+                document = MailMerge(plp.plp_rapor_fq)
+            for key in key_to_cut:
+                item.pop(key)
+            item['nis_student'] = student.nis_student
+            item['name_student'] = student.name_student
+            item['sem_student'] = student.sem_student
+            item['class_student'] = student.class_student
+            print(item)
+            rec.o_nilai = item
+            # rec.save()
+            document.merge(**item)
+            result = os.path.join(BASE_DIR, 'media/Students/'+str(student.nis_student)+"/"+plp.plp_name+"_"+str(student.class_student)+"_"+student.sem_student+".docx")
+            a = document.write(result)
+            print(type(a))
+            rec.report_result = 'Students/'+str(student.nis_student)+"/"+plp.plp_name+"_"+str(student.class_student)+"_"+student.sem_student+".docx"
+            # plp_rec.report_result = result
+            rec.save()
+
+        # Create rapor
+
+        return redirect('list-plp-record')
 #Test
 class CheckAPi(View):
     def get(self, request):
@@ -617,7 +667,8 @@ class FillRapor(View):
             result = os.path.join(BASE_DIR, 'media/Students/'+str(student.nis_student)+"/"+plp.plp_name+"_"+str(student.class_student)+"_"+student.sem_student+".docx")
             a = document.write(result)
             print(type(a))
-            plp_rec.report_result = result
+            plp_rec.report_result = 'Students/'+str(student.nis_student)+"/"+plp.plp_name+"_"+str(student.class_student)+"_"+student.sem_student+".docx"
+            # plp_rec.report_result = result
             plp_rec.save()
             return redirect('list-plp-record')
         except :
@@ -775,7 +826,7 @@ class ViewExportBundle(View):
             docs = []
             link = '/media/Export/'+str(student.name_student)+"_"+str(student.class_student)+"_"+str(student.sem_student)+".docx"
             for item in rec:
-                docs.append(str(item.report_result))
+                docs.append("media/"+str(item.report_result))
             merged_document = Document()
             print(docs)
             result = Document(docs[0])

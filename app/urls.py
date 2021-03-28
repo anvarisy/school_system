@@ -1,6 +1,6 @@
 from django.urls import path,re_path, include
 from django.conf.urls import url
-from app.views import AddBill, AddFile, AddParent, AddPlp,ViewCleanExport, AddPlpRecord, AddStudent, AddSubject, AddSubjectDoc, AddUser, CheckAPi, DeleteAllBill, DeleteAllParent, DeleteAllPlp, DeleteAllPlpRecord, DeleteAllStudent, DeleteAllSubject, DeleteAllSubjectDoc, DeleteBill, DeleteParent, DeletePlp, DeletePlpRecord, DeleteStudent, DeleteSubject, DeleteSubjectDoc, DeleteUser, FillRapor, ImportParent, ImportStudent, ListBill, ListFile, ListParent, ListPlp, ListPlpRecord, ListStudent, ListSubject, ListSubjectDoc, ListUser, PrintPlpRecord, UpdateBill, UpdateParent, UpdatePassword, UpdatePlp, UpdatePlpRecord, UpdateStudent, UpdateSubject, UpdateSubjectDoc, UpdateUser, ViewExportBundle, ViewExportList, ViewHomepage, ViewLogin, ViewLogout
+from app.views import AddBill, AddFile, AddParent, ImportPlpRecord, AddPlp,ViewCleanExport, AddPlpRecord, AddStudent, AddSubject, AddSubjectDoc, AddUser, CheckAPi, DeleteAllBill, DeleteAllParent, DeleteAllPlp, DeleteAllPlpRecord, DeleteAllStudent, DeleteAllSubject, DeleteAllSubjectDoc, DeleteBill, DeleteParent, DeletePlp, DeletePlpRecord, DeleteStudent, DeleteSubject, DeleteSubjectDoc, DeleteUser, FillRapor, ImportParent, ImportStudent, ListBill, ListFile, ListParent, ListPlp, ListPlpRecord, ListStudent, ListSubject, ListSubjectDoc, ListUser, PrintPlpRecord, UpdateBill, UpdateParent, UpdatePassword, UpdatePlp, UpdatePlpRecord, UpdateStudent, UpdateSubject, UpdateSubjectDoc, UpdateUser, ViewExportBundle, ViewExportList, ViewHomepage, ViewLogin, ViewLogout
 from django.contrib.auth.views import PasswordResetView, PasswordResetDoneView, PasswordResetConfirmView,\
 PasswordResetCompleteView,PasswordChangeView
 from django.contrib.auth import views as auth_views
@@ -54,6 +54,7 @@ urlpatterns = [
     path('list-plp-record/',ListPlpRecord.as_view(),name='list-plp-record'),
     path('add-plp-record/',AddPlpRecord.as_view(),name='add-plp-record'),
     path('del-plp-record/',DeleteAllPlpRecord.as_view(),name='del-plp-record'),
+    path('import-plp-record/',ImportPlpRecord.as_view(),name='import-plp-record'),
     path('print-plp-record/<str:pk>/',PrintPlpRecord.as_view(),name='print-plp-record'),
     path('update-plp-record/<str:pk>/',UpdatePlpRecord.as_view(),name='update-plp-record'),
     path('delete-plp-record/<str:pk>/',DeletePlpRecord.as_view(),name='delete-plp-record'),
