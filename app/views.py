@@ -301,36 +301,33 @@ class DeleteStudent(LoginRequiredMixin, DeleteView):
 
 class ImportStudent(LoginRequiredMixin, View):
     def post(self, request):
-        try:
-            data = pd.read_excel(request.FILES.get('file_import'))
+        data = pd.read_excel(request.FILES.get('file_import'))
             
-            df = pd.DataFrame(data)
-            # pd.to_datetime(df['dob_student']).apply(lambda x: x.date())
-            df = df.applymap(str)
-            df.replace("nan","",inplace=True)
-            # df['json'] = df.apply(lambda x: x.to_json(), axis=1)
-            df_json = df.to_json(orient='records',force_ascii=False)
-            # print(df_json)
-            a = json.loads(df_json)
-            for item in a:
-                try:
-                    _parent = item.pop('parent')
-                    a = item.pop('dob_student')
-                    _dob = datetime.strptime(str(a), '%Y-%m-%d %H:%M:%S')
-                    # dob = _dob.strftime('%Y-%m-%d')
-                    # print(dob)
-                    # print(datetime.strptime(item['dob_student'], '%Y-%m-%d'))
-                    o = students.objects.create(**item)
-                    o.parent_id = _parent
-                    o.dob_student = _dob
-                    # # o.dob_student
-                    o.save()
-                except Exception as e:
-                    print(e)
-            return redirect('list-student')
-        except Exception as e:
-            messages.add_message(request,messages.ERROR,'File tidak terbaca, pastikan nama sheet adalah Parent')
-            return redirect('list-student')
+        df = pd.DataFrame(data)
+        # pd.to_datetime(df['dob_student']).apply(lambda x: x.date())
+        df = df.applymap(str)
+        
+        df.replace("nan","",inplace=True)
+        # df['json'] = df.apply(lambda x: x.to_json(), axis=1)
+        df_json = df.to_json(orient='records',force_ascii=False)
+        # print(df_json)
+        a = json.loads(df_json)
+        for item in a:
+            try:
+                _parent = item.pop('parent')
+                a = item.pop('dob_student')
+                _dob = datetime.strptime(str(a), '%Y-%m-%d %H:%M:%S')
+                # dob = _dob.strftime('%Y-%m-%d')
+                # print(dob)
+                # print(datetime.strptime(item['dob_student'], '%Y-%m-%d'))
+                o = students.objects.create(**item)
+                o.parent_id = _parent
+                o.dob_student = _dob
+                # # o.dob_student
+                o.save()
+            except Exception as e:
+                print(e)
+        return redirect('list-student')
 #-----------------BILL------------------------
 class ListBill(LoginRequiredMixin,SingleTableMixin, FilterView):
     login_url = '/login/'
