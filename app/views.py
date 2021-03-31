@@ -190,7 +190,12 @@ class ImportParent(LoginRequiredMixin, View):
             d = json.loads(df_json)
             for item in d:
                 try:
-                    o = parents.objects.create(**item)
+                    o = parents.objects.create(
+                        parent_email=item['parent_email'],
+                        parent_name=item['parent_name'],
+                        parent_mobile=item['parent_mobile'],
+                        parent_add=item['parent_add']
+                    )
                     o.save()
                 except Exception as e:
                     print(e)
