@@ -194,6 +194,7 @@ class ImportParent(LoginRequiredMixin, View):
                     o.save()
                 except Exception as e:
                     print(e)
+                    continue
             # for item in data['parent_name']:
             #     print(item)
             # data = None
@@ -313,20 +314,28 @@ class ImportStudent(LoginRequiredMixin, View):
         # print(df_json)
         a = json.loads(df_json)
         for item in a:
-            try:
-                _parent = item.pop('parent')
-                a = item.pop('dob_student')
-                _dob = datetime.strptime(str(a), '%Y-%m-%d %H:%M:%S')
+            _parent = item.pop('parent')
+            a = item.pop('dob_student')
+            # _dob = datetime.strptime(str(a), '%Y-%m-%d %H:%M:%S')
+            _dob = datetime.strptime(str(a), '%Y-%m-%d')
                 # dob = _dob.strftime('%Y-%m-%d')
                 # print(dob)
                 # print(datetime.strptime(item['dob_student'], '%Y-%m-%d'))
-                o = students.objects.create(**item)
-                o.parent_id = _parent
-                o.dob_student = _dob
-                # # o.dob_student
-                o.save()
-            except Exception as e:
-                print(e)
+            o = students.objects.create(
+                nis_student=item['nis_student'],
+                name_student = item['name_student'],
+                pob_student = item['pob_student'],
+                dob_student = _dob,
+                parent_id = _parent,
+                sex_student = item['sex_student'],
+                add_student = item['add_student'],
+                class_student = item['class_student'],
+                sem_student = item['sem_student']
+                )
+            # o.parent = _parent
+            # o.dob_student = _dob
+            # # o.dob_student
+            o.save()
         return redirect('list-student')
 #-----------------BILL------------------------
 class ListBill(LoginRequiredMixin,SingleTableMixin, FilterView):

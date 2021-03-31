@@ -78,7 +78,7 @@ class uploadrecords(models.Model):
 class parents(models.Model):
     parent_email = models.CharField(max_length=160, primary_key=True)
     parent_name = models.CharField(max_length=100)
-    parent_mobile = models.CharField(max_length=14)
+    parent_mobile = models.CharField(max_length=20)
     parent_add = models.TextField(blank=True, null=True)
     def __str__(self):
         return "%s - %s " % (self.parent_name, self.parent_email)
