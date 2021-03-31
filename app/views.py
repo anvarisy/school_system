@@ -194,7 +194,7 @@ class ImportParent(LoginRequiredMixin, View):
                     o.save()
                 except Exception as e:
                     print(e)
-                    continue
+                    # continue
             # for item in data['parent_name']:
             #     print(item)
             # data = None
