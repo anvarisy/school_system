@@ -106,10 +106,10 @@ class RaporForm(forms.Form):
         print(qs)
         super().__init__(*args, **kwargs)
         for item in qs:
-            self.fields[item] = forms.CharField(max_length=2)
-        self.fields['sakit'] = forms.CharField(max_length=2)
-        self.fields['izin'] = forms.CharField(max_length=2)
-        self.fields['alpha'] = forms.CharField(max_length=2)
+            self.fields[item] = forms.CharField(max_length=360)
+        self.fields['sakit'] = forms.CharField(max_length=360)
+        self.fields['izin'] = forms.CharField(max_length=360)
+        self.fields['alpha'] = forms.CharField(max_length=360)
            
 class SubjectForm(forms.ModelForm):
     teacher = forms.ModelChoiceField(

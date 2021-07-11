@@ -634,14 +634,18 @@ class FillRapor(View):
         else:
             document = MailMerge(plp.plp_rapor_fq)
         # document = MailMerge(plp.plp_rapor)
+        
         f = list(document.get_merge_fields())
-        f.remove('nis_student')
-        f.remove('name_student')
-        f.remove('sem_student')
-        f.remove('class_student')
-        f.remove('sakit')
-        f.remove('izin')
-        f.remove('alpha')
+        try:
+            f.remove('nis_student')
+            f.remove('name_student')
+            f.remove('sem_student')
+            f.remove('class_student')
+            f.remove('sakit')
+            f.remove('izin')
+            f.remove('alpha')
+        except :
+            messages.add_message(request, messages.WARNING, 'Halaman tidak mengandung data absensi !')
         f.sort()
         form = RaporForm(qs = f)
         return render(request, self.template,{'form':form,'button':'Submit','title':'Page Rapor '+student.name_student+'-'+plp.plp_name})
